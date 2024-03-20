@@ -1,6 +1,9 @@
 import os
+from dotenv import load_dotenv
 
 from openai import OpenAI
+
+load_dotenv()
 
 
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
@@ -10,6 +13,6 @@ clients = {
     "deepseek": OpenAI(api_key=DEEPSEEK_KEY, base_url="https://api.deepseek.com/v1")
 }
 models = {
-    "openai": "gpt-3.5-turbo-0125",
+    "openai": "gpt-4-0125-preview",
     "deepseek": "deepseek-coder",
 }

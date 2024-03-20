@@ -36,7 +36,10 @@ def main(problem_name: str, model_name: str):
         new_test = generate_new_test(existing_tests, code, problem_description, client, model)
         if not new_test:
             break
-        code = generate_new_code(existing_tests, new_test, code, problem_description, client, model)
+        new_code = generate_new_code(existing_tests, new_test, code, problem_description, client, model)
+        if new_code == code:
+            break
+        code = new_code
         existing_tests.append(new_test)
         iteration += 1
 
@@ -53,7 +56,9 @@ You are a skilled software developer, who loves writing code using Test Driven D
 We are going to solve this problem by using Test Driven Development. Please output the first test you can generate to solve part of this problem using TDD and pytest.
 
 Please do not output the code to make the test pass.
-Please make explicit the components of the expected result in the test. Here is an example of such a test :
+Please make explicit the components of the expected result in the test. 
+Each test should only test one case, and so have only one assertion.
+Here is an example of such a test :
 ```python
 def test_compute_number_of_eaten_apples():
     # Given
@@ -87,7 +92,9 @@ Please output the simplest test you can add to improve the behavior of our code.
 Please do not output the code to make the test pass.
 Do not output the imports, as they are already written.
 
-Please make explicit the components of the expected result in the test. Here is an example of such a test :
+Please make explicit the components of the expected result in the test. 
+Each test should only test one case, and so have only one assertion.
+Here is an example of such a test :
 ```python
 def test_compute_number_of_eaten_apples():
     # Given

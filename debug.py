@@ -58,7 +58,7 @@ You should output the whole file including the imports, and in no case output th
         output = chat_completion.choices[0].message.content
         if "```python" in output:
             new_code = output.split("```python")[-1].split("```")[0]
-            print(new_code, "blue")
+            print(new_code, color="blue")
             with open(code_file, "w") as f:
                 f.write(new_code)
         debug_code(test_file, code_file, problem_description, client, model, n_retries - 1)

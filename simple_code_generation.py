@@ -57,8 +57,8 @@ def test_compute_number_of_eaten_apples():
     )
     output = chat_completion.choices[0].message.content
     test = output.split("```python")[-1].split("```")[0]
-    print(test, "magenta")
-    with open("test_code.py", "w") as f:
+    print(test, color="magenta")
+    with open(TEST_FILE, "w") as f:
         f.write(f"""
 from code_simple_generation import *
 
@@ -91,7 +91,7 @@ Please do not output any tests, as they are already written.
     )
     output = chat_completion.choices[0].message.content
     new_code = output.split("```python")[-1].split("```")[0]
-    print(new_code, "blue")
+    print(new_code, color="blue")
     with open(CODE_FILE, "w") as f:
         f.write(new_code)
 
