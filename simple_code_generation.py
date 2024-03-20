@@ -1,24 +1,15 @@
-import os
+from llm_config import clients, models
 
 import click
 from openai import OpenAI
 
+from debug import debug_code
 from problems import problems
+from print_color import print
 
 
-TEST_FILE = "test_code_tdd.py"
-CODE_FILE = "code_tdd.py"
-
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
-DEEPSEEK_KEY = os.environ.get("DEEPSEEK_API_KEY")
-clients = {
-    "openai": OpenAI(api_key=OPENAI_API_KEY),
-    "deepseek": OpenAI(api_key=DEEPSEEK_KEY, base_url="https://api.deepseek.com/v1")
-}
-models = {
-    "openai": "gpt-4-1106-preview",
-    "deepseek": "deepseek-coder",
-}
+TEST_FILE = "test_code_simple_generation.py"
+CODE_FILE = "code_simple_generation.py"
 
 
 @click.command()
@@ -40,6 +31,7 @@ def generate_tests(problem_description: str, client: OpenAI, model: str):
 Please generate a suite of tests to make sure that the code you are about to write is working as expected.
 
 Please do not output the code to make the test pass.
+Please output the whole test without any ellipsis or '...', as it will be directly written to a file.
 Please make explicit the components of the expected result in the test. Here is an example of such a test :
 ```python
 def test_compute_number_of_eaten_apples():
@@ -65,8 +57,13 @@ def test_compute_number_of_eaten_apples():
     )
     output = chat_completion.choices[0].message.content
     test = output.split("```python")[-1].split("```")[0]
-    with open("test_code.py", "a") as f:
-        f.write(test)
+    print(test, "magenta")
+    with open("test_code.py", "w") as f:
+        f.write(f"""
+from code_simple_generation import *
+
+{test}
+        """)
     return test
 
 
@@ -80,6 +77,8 @@ Here are the tests which have been written to check that the code is working as 
 ```
 
 Please output the code to make the tests pass.
+Please output the whole code without any ellipsis or ..., as it will be directly written to a file.
+Please do not output any tests, as they are already written.
 """
     chat_completion = client.chat.completions.create(
         messages=[
@@ -92,8 +91,11 @@ Please output the code to make the tests pass.
     )
     output = chat_completion.choices[0].message.content
     new_code = output.split("```python")[-1].split("```")[0]
+    print(new_code, "blue")
     with open(CODE_FILE, "w") as f:
         f.write(new_code)
+
+    debug_code(TEST_FILE, CODE_FILE, problem_description, client, model, 3)
     return new_code
 
 

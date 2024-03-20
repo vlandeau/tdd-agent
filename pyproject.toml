@@ -12,6 +12,7 @@ jupyter = "^1.0.0"
 pyautogen = "^0.2.17"
 pytest = "^8.1.1"
 click = "^8.1.7"
+print-color = "^0.4.6"
 
 
 [build-system]

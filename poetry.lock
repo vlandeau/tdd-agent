@@ -1557,6 +1557,17 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
+name = "print-color"
+version = "0.4.6"
+description = "A simple package to print in color to the terminal"
+optional = false
+python-versions = ">=3.7,<4.0"
+files = [
+    {file = "print_color-0.4.6-py3-none-any.whl", hash = "sha256:494bd1cdb84daf481f0e63bd22b3c32f7d52827d8f5d9138a96bb01ca8ba9299"},
+    {file = "print_color-0.4.6.tar.gz", hash = "sha256:d3aafc1666c8d31a85fffa6ee8e4f269f5d5e338d685b4e6179915c71867c585"},
+]
+
+[[package]]
 name = "prometheus-client"
 version = "0.20.0"
 description = "Python client for the Prometheus monitoring system."
@@ -2742,4 +2753,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "~3.10"
-content-hash = "2b211e0d90eebff8ebaf762540020b766b6462d3e5013a301bc376d46b90c416"
+content-hash = "cb9f7dcd6d97bbd707c046242c763c6e1a729bd38278de45a3e5a524ef677329"
